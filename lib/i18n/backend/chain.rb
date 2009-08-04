@@ -45,7 +45,7 @@ module I18n
           return unless key
           result = {}
           backends.each do |backend|
-            entry = backend.lookup(locale, key, scope, separator)
+            entry = backend.send( :lookup, locale, key, scope, separator )
             if entry.is_a?(Hash)
               result.merge!(entry)
             elsif !entry.nil?

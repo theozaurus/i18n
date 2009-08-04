@@ -9,16 +9,16 @@ class Translation < ActiveRecord::Base
   serialize :value
   
   named_scope :locale, lambda {|locale|
-    { :conditions => {:locale => locale }}
+    { :conditions => {:locale => locale.to_s }}
   }
   
   named_scope :key, lambda { |key|
-    { :conditions => {:key => key} }
+    { :conditions => {:key => key.to_s} }
   }
   
   named_scope :keys, lambda { |key, separator|
     separator ||= I18n.default_separator
-    { :conditions => "key LIKE '#{key}#{separator}%'" }
+    { :conditions => "`key` LIKE '#{key}#{separator}%'" }
   }
   
   def value=(v)
